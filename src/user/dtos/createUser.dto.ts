@@ -1,15 +1,4 @@
-import { IsString, Length } from 'class-validator';
-import { DEFAULT_GOAL, DEFAULT_NICKNAME } from '../consts/defaultValue';
-import { GOAL, NICKNAME } from '../consts/type';
+import { User } from '../entities/user.entity';
+import { PickType } from '@nestjs/mapped-types';
 
-export class CreateUserInputDto {
-  // 유저 이름
-  @IsString()
-  @Length(0, 10)
-  nickname: NICKNAME = DEFAULT_NICKNAME;
-
-  // 유저 목표
-  @IsString()
-  @Length(0, 20)
-  goal: GOAL = DEFAULT_GOAL;
-}
+export class CreateUserInputDto extends PickType(User, ['nickname', 'goal']) {}
