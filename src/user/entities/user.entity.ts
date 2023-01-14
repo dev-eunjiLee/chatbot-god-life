@@ -1,6 +1,10 @@
 import { IsNumber, IsString, Length } from 'class-validator';
-import { GOAL, NICKNAME } from '../consts/type';
-import { DEFAULT_GOAL, DEFAULT_NICKNAME } from '../consts/defaultValue';
+
+export const DEFAULT_NICKNAME = 'anonymous';
+export const DEFAULT_GOAL = '미라클 모닝';
+
+export type NICKNAME = string;
+export type GOAL = string;
 
 export class User {
   @IsNumber()
