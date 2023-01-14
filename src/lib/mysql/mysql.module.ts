@@ -1,4 +1,4 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { DynamicModule, Global, Module } from '@nestjs/common';
 import mysql, { Connection } from 'mysql2/promise';
 
 export interface MysqlConnectConfig {
@@ -19,7 +19,7 @@ export const createConnection = async (
 
 @Module({})
 export class MysqlModule {
-  static async forRoot(config: MysqlConnectConfig): Promise<DynamicModule> {
+  static forRoot(config: MysqlConnectConfig): DynamicModule {
     return {
       module: MysqlModule,
       providers: [
