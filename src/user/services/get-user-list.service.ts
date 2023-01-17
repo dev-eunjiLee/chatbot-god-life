@@ -18,6 +18,6 @@ export class GetUserListService implements GetUserListInboundPort {
   async execute(
     params: GetUserListInboundPortInputDto,
   ): Promise<GetUserListInboundPortOutputDto> {
-    return await this.getUserListOutboundPort.execute();
+    return await this.getUserListOutboundPort.execute(params);
   }
 }

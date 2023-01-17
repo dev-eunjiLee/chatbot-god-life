@@ -1,6 +1,7 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get, Inject, Param } from '@nestjs/common';
 import {
   GET_USER_LIST_INBOUND_PORT,
+  GET_USER_LIST_OPTION,
   GetUserListInboundPort,
 } from '../inbound-port/get-user-list.inbound-port';
 
@@ -10,8 +11,8 @@ export class GetUserListController {
     @Inject(GET_USER_LIST_INBOUND_PORT)
     private readonly getUserListInboundPort: GetUserListInboundPort,
   ) {}
-  @Get('/user-list')
-  async getUserList() {
-    return await this.getUserListInboundPort.execute();
+  @Get('/user-list/:option')
+  async getUserList(@Param('option') option: GET_USER_LIST_OPTION) {
+    return await this.getUserListInboundPort.execute({ option });
   }
 }
