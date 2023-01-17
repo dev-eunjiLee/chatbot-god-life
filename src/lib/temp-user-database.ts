@@ -12,6 +12,11 @@ export const TempUserDatabase = (() => {
       nickname: 'user2',
       goal: '1일1커밋',
     },
+    {
+      id: 3,
+      nickname: 'user3',
+      goal: '매일매일 운동하기',
+    },
   ];
 
   return {
