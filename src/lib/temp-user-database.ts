@@ -1,23 +1,13 @@
 import { User } from '../user/entities/user.entity';
 
 export const TempUserDatabase = (() => {
-  const userList: User[] = [
-    {
-      id: 1,
-      nickname: 'user1',
-      goal: '미라클모닝',
-    },
-    {
-      id: 2,
-      nickname: 'user2',
-      goal: '1일1커밋',
-    },
-    {
-      id: 3,
-      nickname: 'user3',
-      goal: '매일매일 운동하기',
-    },
-  ];
+  const userList: Array<User> = new Array(100).fill(null).map((per, index) => {
+    return {
+      id: index,
+      nickname: `${index}_nickname`,
+      goal: `${index}_goal`,
+    };
+  });
 
   return {
     getUserList: () => Promise.resolve(userList),
