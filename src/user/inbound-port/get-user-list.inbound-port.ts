@@ -4,12 +4,12 @@ export const GET_USER_LIST_INBOUND_PORT = 'GET_USER_LIST_INBOUND_PORT';
 
 export enum GET_USER_LIST_OPTION {
   ALL = 'ALL',
-  LATEST = 'LATEST',
-  OLDEST = 'OLDEST',
+  EVEN = 'EVEN',
 }
 
 export type GetUserListInboundPortInputDto = {
   option: GET_USER_LIST_OPTION;
+  length: number | undefined;
 };
 export type GetUserListInboundPortOutputDto = Array<{
   id: number;
