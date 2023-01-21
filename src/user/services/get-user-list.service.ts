@@ -22,13 +22,60 @@ export class GetUserListService implements GetUserListInboundPort {
     // 함수형 프로그래밍 테스트를 위해 DB에서 전체 데이터를 가져온 후 필터링
     const originUserList = await this.getUserListOutboundPort.execute();
 
-    // 지연 평가 구현을 위해 요리조리 제너레이터 사용해보는 중
     const generatorUserList = this.makeUserIterable(originUserList);
 
-    // 아이디가 짝수인 경우
-    const evenUserList = this.makeEvenIdUserList(generatorUserList);
+    this.pipe(generatorUserList);
+
+    const filteredUserList = this.filter(generatorUserList, (per) => {
+      if (per.id % 2 === 0) return true;
+      else return false;
+    });
+
     // 최신순으로 일정 개수만큼 가져오기
-    return this.take(evenUserList, params.length);
+    return this.userTake(filteredUserList, params.length);
+  }
+
+  private reduce(
+    acc: IterableIterator<User>,
+    funcList: Array<
+      (args: IterableIterator<User>) => IterableIterator<User> | Array<User>
+    >,
+  ) {
+    let updatedAcc = acc;
+    for (const func of funcList) {
+      const result = func(updatedAcc);
+      if (Array.isArray(result)) {
+        updatedAcc = this.makeUserIterable(result);
+      } else {
+        updatedAcc = result;
+      }
+    }
+
+    return updatedAcc;
+  }
+
+  private pipe(
+    list: IterableIterator<User> | Array<User>,
+    ...funcList: Array<(...args: any[]) => IterableIterator<User> | Array<User>>
+  ): Array<User | null> {
+    let iterableUser: IterableIterator<User>;
+
+    if (Array.isArray(list) === true) {
+      iterableUser = this.makeUserIterable(list as Array<User>);
+    } else {
+      iterableUser = list as IterableIterator<User>;
+    }
+
+    return this.reduce(iterableUser, funcList);
+  }
+
+  private *filter(
+    iter: IterableIterator<User>,
+    func: (...args: any[]) => any,
+  ): IterableIterator<User> {
+    for (const perIter of iter) {
+      if (func(perIter) === true) yield perIter;
+    }
   }
 
   private *makeUserIterable(userList: Array<User>): IterableIterator<User> {
@@ -47,7 +94,7 @@ export class GetUserListService implements GetUserListInboundPort {
     }
   }
 
-  private take(userList: IterableIterator<User>, length = 1): Array<User> {
+  private userTake(userList: IterableIterator<User>, length = 1): Array<User> {
     let i = 0;
     const takeUserList: Array<User> = [];
     for (const user of userList) {
