@@ -24,8 +24,6 @@ export class GetUserListService implements GetUserListInboundPort {
 
     const generatorUserList = this.makeUserIterable(originUserList);
 
-    this.pipe(generatorUserList);
-
     const filteredUserList = this.filter(generatorUserList, (per) => {
       if (per.id % 2 === 0) return true;
       else return false;
@@ -35,39 +33,9 @@ export class GetUserListService implements GetUserListInboundPort {
     return this.userTake(filteredUserList, params.length);
   }
 
-  private reduce(
-    acc: IterableIterator<User>,
-    funcList: Array<
-      (args: IterableIterator<User>) => IterableIterator<User> | Array<User>
-    >,
-  ) {
-    let updatedAcc = acc;
-    for (const func of funcList) {
-      const result = func(updatedAcc);
-      if (Array.isArray(result)) {
-        updatedAcc = this.makeUserIterable(result);
-      } else {
-        updatedAcc = result;
-      }
-    }
+  // TODO pipe 다시 만들기
 
-    return updatedAcc;
-  }
-
-  private pipe(
-    list: IterableIterator<User> | Array<User>,
-    ...funcList: Array<(...args: any[]) => IterableIterator<User> | Array<User>>
-  ): Array<User | null> {
-    let iterableUser: IterableIterator<User>;
-
-    if (Array.isArray(list) === true) {
-      iterableUser = this.makeUserIterable(list as Array<User>);
-    } else {
-      iterableUser = list as IterableIterator<User>;
-    }
-
-    return this.reduce(iterableUser, funcList);
-  }
+  // TODO reduce 다시 만들기
 
   private *filter(
     iter: IterableIterator<User>,
