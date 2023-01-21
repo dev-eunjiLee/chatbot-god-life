@@ -1,5 +1,4 @@
 import { GOAL, NICKNAME } from '../entities/user.entity';
-import { GET_USER_LIST_OPTION } from '../inbound-port/get-user-list.inbound-port';
 
 export const GET_USER_LIST_OUTBOUND_PORT = 'GET_USER_LIST_OUTBOUND_PORT';
 
