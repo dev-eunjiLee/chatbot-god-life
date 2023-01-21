@@ -24,10 +24,10 @@ export class GetUserListService implements GetUserListInboundPort {
 
     const generatorUserList = this.makeUserIterable(originUserList);
 
-    const filteredUserList = this.filter(generatorUserList, (per) => {
-      if (per.id % 2 === 0) return true;
-      else return false;
-    });
+    const filteredUserList = this.filter(
+      generatorUserList,
+      this.getEvenIdUserList,
+    );
 
     // 최신순으로 일정 개수만큼 가져오기
     return this.userTake(filteredUserList, params.length);
@@ -54,12 +54,8 @@ export class GetUserListService implements GetUserListInboundPort {
     }
   }
 
-  private *makeEvenIdUserList(
-    genUserList: IterableIterator<User>,
-  ): IterableIterator<User> {
-    for (const user of genUserList) {
-      if (user.id % 2 === 0) yield user;
-    }
+  private getEvenIdUserList(user: User): boolean {
+    return user.id % 2 === 0;
   }
 
   private userTake(userList: IterableIterator<User>, length = 1): Array<User> {
