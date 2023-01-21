@@ -11,8 +11,11 @@ export class GetUserListController {
     @Inject(GET_USER_LIST_INBOUND_PORT)
     private readonly getUserListInboundPort: GetUserListInboundPort,
   ) {}
-  @Get('/user-list/:option')
-  async getUserList(@Param('option') option: GET_USER_LIST_OPTION) {
-    return await this.getUserListInboundPort.execute({ option });
+  @Get('/user-list/:option/:length')
+  async getUserList(
+    @Param('option') option: GET_USER_LIST_OPTION,
+    @Param('length') length: number | undefined,
+  ) {
+    return await this.getUserListInboundPort.execute({ option, length });
   }
 }
