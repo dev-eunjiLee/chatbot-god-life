@@ -18,4 +18,4 @@ import { GetUserListOutboundAdapter } from './outbound-adapter/get-user-list.out
     },
   ],
 })
-export class UserModule {}
+export class FunctionalProgrammingTestUserModule {}
