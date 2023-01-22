@@ -24,8 +24,17 @@ export class GetUserListService implements GetUserListInboundPort {
 
     const result = this.pipe(
       originUserList,
-      (arr: IterableIterator<User>) => this.filter(arr, this.getEvenIdUserList),
-      (arr: IterableIterator<User>) => this.userTake(arr, params.length),
+      (arr: IterableIterator<User>) =>
+        this.filter(arr, (user) => user.id % 2 === 0),
+      (arr: IterableIterator<User>) =>
+        this.filter(arr, (user) => user.id % 3 === 0),
+      (arr: IterableIterator<User>) =>
+        this.userTake(
+          arr,
+          Number.isNaN(params.length) || params.length === undefined
+            ? null
+            : params.length,
+        ),
     );
 
     if (Array.isArray(result) !== true) {
@@ -35,6 +44,7 @@ export class GetUserListService implements GetUserListInboundPort {
     }
   }
 
+  // 들어온 함수들이 reduce 함수를 탈 수 있도록 해주는 함수
   private pipe(
     iter: IterableIterator<User> | Array<User>,
     ...funcs: Array<
@@ -42,6 +52,7 @@ export class GetUserListService implements GetUserListInboundPort {
     >
   ): IterableIterator<User> | Array<User> | null {
     let insertedIter = iter;
+    // 처음에 들어온 객체가 IterableIterator가 아니라 Array인 경우 IterableIterator 객체로 변경
     if (Array.isArray(insertedIter) === true) {
       insertedIter = this.makeUserIterable(insertedIter as Array<User>);
     }
@@ -58,7 +69,10 @@ export class GetUserListService implements GetUserListInboundPort {
     let tempIter: IterableIterator<User> | null | Array<User> = iter;
     let i = 0;
     for (const func of funcs) {
+      // 배열로 들어온 값이 func 통과할 수 있도록 로직 구현
       const result = func(tempIter);
+
+      // 마지막 함수를 돈 경우가 아닌데, Array<User>가 리턴된거면 IterableIterator로 변경해줌
       if (Array.isArray(result) && i !== funcs.length - 1) {
         if (result !== null) {
           tempIter = this.makeUserIterable(
@@ -73,6 +87,7 @@ export class GetUserListService implements GetUserListInboundPort {
     return tempIter;
   }
 
+  // 지연평가용 filter
   private *filter(
     iter: IterableIterator<User>,
     func: (...args: any[]) => any,
@@ -82,6 +97,7 @@ export class GetUserListService implements GetUserListInboundPort {
     }
   }
 
+  // 지연평가 하기 위해 일반 Array<User>를 IterableIterator<User>로 변경해주는 함수
   private *makeUserIterable(userList: Array<User>): IterableIterator<User> {
     let i = 0;
     while (i < userList.length) {
@@ -90,13 +106,10 @@ export class GetUserListService implements GetUserListInboundPort {
     }
   }
 
-  private getEvenIdUserList(user: User): boolean {
-    return user.id % 2 === 0;
-  }
-
+  // IterableIterator 평가 후 최종 리턴 시 사용
   private userTake(
     userList: IterableIterator<User> | null,
-    length = 1,
+    length: number | null,
   ): Array<User> {
     let i = 0;
     const takeUserList: Array<User> = [];
@@ -105,12 +118,15 @@ export class GetUserListService implements GetUserListInboundPort {
       return [];
     }
 
+    const arraySize = length === null ? Number.MAX_SAFE_INTEGER : length;
+
     for (const user of userList) {
-      if (i < length) {
+      if (i < arraySize) {
         takeUserList.push(user);
         i++;
       } else break;
     }
+
     return takeUserList;
   }
 }
