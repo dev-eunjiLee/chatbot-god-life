@@ -1,73 +1,37 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# CHATBOT_GOD_LIFE
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+### 대충 사는건 아래의 프로필 이미지로 충분하다.
+### 이제 갓생을 살자.
+### 모두의 갓생을 응원합니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<br /><br />
 
-## Description
+<img width="432" alt="갓생러 프로필" src="https://user-images.githubusercontent.com/74188470/213921901-b44fd33b-98db-49c7-8ad5-05f477566cbf.png">
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<br /><br />
 
-## Installation
+---
 
-```bash
-$ npm install
-```
+## 갓생러
 
-## Running the app
+- 유저에게 카카오톡으로 일정을 안내하고, 하루의 마지막에 일정을 회고하여 소위 말하는 '갓생'을 살 수 있도록 도와주는 챗봇
 
-```bash
-# development
-$ npm run start
+### 1. 구현 기능
 
-# watch mode
-$ npm run start:dev
+- 유저 CRUD
+- 일정 CRUD
+- 알림 서비스
 
-# production mode
-$ npm run start:prod
-```
 
-## Test
+### 2. 사용 기능
 
-```bash
-# unit tests
-$ npm run test
+- Language: Typescript
+- Framework: NestJS(Express)
+- Docker-compose
 
-# e2e tests
-$ npm run test:e2e
+### 3. 의의
 
-# test coverage
-$ npm run test:cov
-```
+- 테스트 코드 적극 사용
+- 라이브러리 사용없이 함수형 프로그래밍 일부 구현
+- 카카오톡 챗봇 방식을 사용하여 프론트엔드 구현없이 유저에게 실 서비스할 수 있는 서비스 구현
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
