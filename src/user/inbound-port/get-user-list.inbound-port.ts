@@ -15,7 +15,7 @@ export type GetUserListInboundPortOutputDto = Array<{
   id: number;
   nickname: NICKNAME;
   goal: GOAL;
-}>;
+}> | null;
 
 export interface GetUserListInboundPort {
   execute(
