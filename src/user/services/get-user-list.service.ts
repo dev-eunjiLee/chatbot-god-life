@@ -22,20 +22,56 @@ export class GetUserListService implements GetUserListInboundPort {
     // 함수형 프로그래밍 테스트를 위해 DB에서 전체 데이터를 가져온 후 필터링
     const originUserList = await this.getUserListOutboundPort.execute();
 
-    const generatorUserList = this.makeUserIterable(originUserList);
-
-    const filteredUserList = this.filter(
-      generatorUserList,
-      this.getEvenIdUserList,
+    const result = this.pipe(
+      originUserList,
+      (arr: IterableIterator<User>) => this.filter(arr, this.getEvenIdUserList),
+      (arr: IterableIterator<User>) => this.userTake(arr, params.length),
     );
 
-    // 최신순으로 일정 개수만큼 가져오기
-    return this.userTake(filteredUserList, params.length);
+    if (Array.isArray(result) !== true) {
+      throw Error('최종 전달된 객체가 Array<User>가 아닙니다');
+    } else {
+      return result as Array<User> | null;
+    }
   }
 
-  // TODO pipe 다시 만들기
+  private pipe(
+    iter: IterableIterator<User> | Array<User>,
+    ...funcs: Array<
+      (...args: any[]) => IterableIterator<User> | Array<User> | null
+    >
+  ): IterableIterator<User> | Array<User> | null {
+    let insertedIter = iter;
+    if (Array.isArray(insertedIter) === true) {
+      insertedIter = this.makeUserIterable(insertedIter as Array<User>);
+    }
 
-  // TODO reduce 다시 만들기
+    return this.reduce(insertedIter as IterableIterator<User> | null, ...funcs);
+  }
+
+  private reduce(
+    iter: IterableIterator<User> | null,
+    ...funcs: Array<
+      (...args: any[]) => IterableIterator<User> | Array<User> | null
+    >
+  ): IterableIterator<User> | Array<User> | null {
+    let tempIter: IterableIterator<User> | null | Array<User> = iter;
+    let i = 0;
+    for (const func of funcs) {
+      const result = func(tempIter);
+      if (Array.isArray(result) && i !== funcs.length - 1) {
+        if (result !== null) {
+          tempIter = this.makeUserIterable(
+            result as Array<User>,
+          ) as IterableIterator<User>;
+          continue;
+        }
+      }
+      tempIter = result as IterableIterator<User> | null | Array<User>;
+      i++;
+    }
+    return tempIter;
+  }
 
   private *filter(
     iter: IterableIterator<User>,
@@ -58,9 +94,17 @@ export class GetUserListService implements GetUserListInboundPort {
     return user.id % 2 === 0;
   }
 
-  private userTake(userList: IterableIterator<User>, length = 1): Array<User> {
+  private userTake(
+    userList: IterableIterator<User> | null,
+    length = 1,
+  ): Array<User> {
     let i = 0;
     const takeUserList: Array<User> = [];
+
+    if (userList === null) {
+      return [];
+    }
+
     for (const user of userList) {
       if (i < length) {
         takeUserList.push(user);
