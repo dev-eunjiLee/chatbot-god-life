@@ -3,7 +3,7 @@ import {
   GetUserListOutboundPortInputDto,
   GetUserListOutboundPortOutputDto,
 } from '../oubound-port/get-user-list.outbound-port';
-import { TempUserDatabase } from '../../lib/temp-user-database';
+import { TempUserDatabase } from '../lib/temp-user-database';
 
 export class GetUserListOutboundAdapter implements GetUserListOutboundPort {
   async execute(
