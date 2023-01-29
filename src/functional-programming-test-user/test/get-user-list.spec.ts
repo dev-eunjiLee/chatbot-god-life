@@ -3,10 +3,7 @@ import {
   GetUserListOutboundPort,
   GetUserListOutboundPortOutputDto,
 } from '../oubound-port/get-user-list.outbound-port';
-import {
-  GET_USER_LIST_OPTION,
-  GetUserListInboundPortInputDto,
-} from '../inbound-port/get-user-list.inbound-port';
+import { GET_USER_LIST_OPTION } from '../inbound-port/get-user-list.inbound-port';
 import { User } from '../entities/user.entity';
 
 class MGetUserListOutboundAdapter implements GetUserListOutboundPort {
