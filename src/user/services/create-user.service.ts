@@ -9,7 +9,7 @@ import {
   KAKAO_SERVICE_TIME_ZONE,
 } from '../../common/dtos/kakao.skill.dto';
 
-enum USER_CHECK_FOR_CREATE_USER_CODE {
+export enum USER_CHECK_FOR_CREATE_USER_CODE {
   OK = 'OK',
   NO_SERVICE_TIME_ZONE = 'NO_SERVICE_TIME_ZONE',
   NO_SERVICE_LANG = 'NO_SERVICE_LANG',
