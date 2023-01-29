@@ -46,7 +46,7 @@ export class CreateUserService implements CreateUserInboundPort {
       return USER_CHECK_FOR_CREATE_USER_CODE.NO_SERVICE_TIME_ZONE;
     }
 
-    if ((KAKAO_SERVICE_LANG_LIST as ReadonlyArray<string>).includes(lang)) {
+    if (!(KAKAO_SERVICE_LANG_LIST as ReadonlyArray<string>).includes(lang)) {
       return USER_CHECK_FOR_CREATE_USER_CODE.NO_SERVICE_LANG;
     }
 
