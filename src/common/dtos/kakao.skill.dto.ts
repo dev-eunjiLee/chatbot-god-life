@@ -1,3 +1,6 @@
+export const KAKAO_SERVICE_TIME_ZONE = 'Asia/Seoul';
+export const KAKAO_SERVICE_LANG_LIST = ['ko', 'kr'] as const;
+
 export type KakaoSkillInputDto = {
   userRequest: {
     timeZone: string; // 사용자의 시간대 - 한국인 경우 "Asia/Seoul"
