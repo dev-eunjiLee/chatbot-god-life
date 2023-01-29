@@ -28,7 +28,7 @@ describe('', () => {
     };
     const result1 = createUserService['userRequestCheckForCreateUser'](params);
     expect(result1).toStrictEqual(
-      USER_CHECK_FOR_CREATE_USER_CODE.NO_SERVICE_TIME_ZONE,
+      USER_CHECK_FOR_CREATE_USER_CODE.NO_SERVICE_LANG,
     );
   });
 });
