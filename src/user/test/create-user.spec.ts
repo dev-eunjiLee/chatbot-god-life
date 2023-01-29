@@ -10,6 +10,8 @@ describe('', () => {
 
   let params: UserCheckForCreateUserInputDto;
 
+  // 유저 체크용
+
   test('유저 생성 전 유저 타입 체크 - timeZone 걸러내기', () => {
     params = {
       timeZone: 'Asia',
