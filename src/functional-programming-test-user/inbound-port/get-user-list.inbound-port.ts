@@ -9,7 +9,7 @@ export enum GET_USER_LIST_OPTION {
 
 export type GetUserListInboundPortInputDto = {
   option: GET_USER_LIST_OPTION;
-  length: number | undefined;
+  length?: number | undefined;
 };
 export type GetUserListInboundPortOutputDto = Array<{
   id: number;
