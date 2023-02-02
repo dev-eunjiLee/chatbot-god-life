@@ -1,5 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import mysql, { Connection } from 'mysql2/promise';
+import * as mysql from 'mysql2/promise';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 export interface MysqlConnectConfig {
@@ -11,10 +11,11 @@ export interface MysqlConnectConfig {
 
 export const MYSQL_CONNECTION_CONFIG = 'MYSQL_CONNECTION_CONFIG';
 export const MYSQL_CONNECTION = 'MYSQL_CONNECTION';
+export const MYSQL = 'MYSQL';
 
 export const createConnection = async (
   config: MysqlConnectConfig,
-): Promise<Connection> => {
+): Promise<any> => {
   console.log(mysql);
   return mysql.createConnection(config);
 };
@@ -50,10 +51,17 @@ export class MysqlModule {
           useFactory: connectionConfig,
         },
         {
+          provide: MYSQL,
+          useValue: mysql,
+        },
+        {
           provide: MYSQL_CONNECTION,
-          inject: [MYSQL_CONNECTION_CONFIG],
-          useFactory: async (config: MysqlConnectConfig) =>
-            await createConnection(config),
+          inject: [MYSQL_CONNECTION_CONFIG, MYSQL],
+          useFactory: async (config: MysqlConnectConfig, mysql: any) => {
+            console.log(config);
+            console.log(mysql);
+            await createConnection(config);
+          },
         },
       ],
       imports: [ConfigModule],
