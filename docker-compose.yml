@@ -11,4 +11,10 @@ services:
    context: .
    dockerfile: ./Dockerfile
   ports:
-   - 3000:3000
+   - 3000:9229
+  environment:
+   - MYSQL_HOST=127.0.0.1
+   - MYSQL_USER=oot
+   - MYSQL_PASSWORD=root
+   - MYSQL_DATABASE=ysql
+   - MYSQL_PORT=3310
