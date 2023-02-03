@@ -29,10 +29,14 @@ export class CreateUserService implements CreateUserInboundPort {
   ): Promise<CreateUserInboundPortOutputDto> {
     console.log(params);
 
-    this.userRequestCheckForCreateUser({
+    const kakaoUserCheckResult = this.userRequestCheckForCreateUser({
       timeZone: params.userRequest.timeZone,
       lang: params.userRequest.lang,
     });
+
+    if (kakaoUserCheckResult !== USER_CHECK_FOR_CREATE_USER_CODE.OK) {
+      throw Error(kakaoUserCheckResult);
+    }
 
     return Promise.resolve(undefined);
   }
