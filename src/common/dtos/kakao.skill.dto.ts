@@ -1,3 +1,5 @@
+import { Component, ContextTemplate } from './kakao.skill.detail.types';
+
 export const KAKAO_SERVICE_TIME_ZONE = 'Asia/Seoul';
 export const KAKAO_SERVICE_LANG_LIST = ['ko', 'kr'] as const;
 
@@ -23,4 +25,11 @@ export type KakaoSkillInputDto = {
     id: string; // 봇의 식별자
     name: string; // 설정된 봇의 이름
   };
+};
+
+export type KakaoSkillOutputDto = {
+  version: string;
+  template: Component;
+  context: ContextTemplate;
+  data: any;
 };
