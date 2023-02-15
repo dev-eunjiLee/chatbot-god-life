@@ -88,12 +88,37 @@ export type ContextValue = {
   params?: Map<string, string>;
 };
 
+export type Head = {
+  title: string;
+};
+
+export type ImageTitle = {
+  title: string;
+  description?: string;
+  imageUrl?: string;
+};
+
+export type ItemList = {
+  title: string;
+  description: string;
+};
+
+export type ItemListSummary = {
+  title: string;
+  description: string;
+};
+
 // TODO 작업중 https://i.kakao.com/docs/skill-response-format#%EC%83%81%EC%84%B8-%ED%95%84%EB%93%9C-15
 export type ItemCard = {
   thumbnail?: Thumbnail;
   head?: Head;
   profile?: Profile;
-  imageTitle?:ImageTitle
-  itemList: Array<ItemList>
-  itemListAlignmen?t: string
+  imageTitle?: ImageTitle;
+  itemList: Array<ItemList>;
+  itemListAlignment?: string;
+  itemListSummary?: ItemListSummary;
+  title?: string;
+  description?: string;
+  buttons?: Array<Button>;
+  buttonLayout?: string;
 };
